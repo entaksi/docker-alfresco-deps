@@ -1,0 +1,2 @@
+CREATE ROLE :user WITH LOGIN, PASSWORD :passwd;
+CREATE DATABASE mydb OWNER :user;
