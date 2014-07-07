@@ -76,7 +76,7 @@ tweak_tomcat() {
 
   cat > $CATALINA_HOME/conf/Catalina/localhost/solr.xml <<EOF
 <?xml version="1.0" encoding="utf-8"?>
-  <Context docBase="$ALF_HOME/deploy/solr.war" debug="0" crossContext="true">
+  <Context docBase="$ALF_HOME/solr/apache-solr-1.4.1.war" debug="0" crossContext="true">
   <Environment name="solr/home" type="java.lang.String" value="$ALF_HOME/solr" override="true"/>
 </Context>
 EOF
@@ -156,9 +156,15 @@ tweak_alfresco() {
 
 }
 
+tweak_nginx() {
+  NGINX_CONF=/etc/nginx/nginx.conf
+  cp $ALF_SETUP/nginx.conf $NGINX_CONF
+  sed -i "s,@@ALFRESCO_CONTEXT@@,$ALFRESCO_CONTEXT,g" $NGINX_CONF
+}
 
 tweak_tomcat
 tweak_alfresco
+tweak_nginx
 
 JVM_HEAP=${JVM_HEAP:-2G}
 
@@ -170,12 +176,7 @@ export JAVA_OPTS="${JAVA_OPTS} -Dalfresco.home=${ALF_HOME} -Dcom.sun.management.
 # start supervisor
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
-if [ "${DB_HOST}" == "localhost" ]; then
-    /etc/init.d/postgresql start
-fi
-
+cd $CATALINA_HOME/logs
 sudo -u alfresco $CATALINA_HOME/bin/catalina.sh run
-
-
 
 

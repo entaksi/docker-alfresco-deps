@@ -110,6 +110,8 @@ install_tomcat() {
 
   curl -# -O $JDBCPOSTGRESURL/$JDBCPOSTGRES
   mv $JDBCPOSTGRES $CATALINA_HOME/lib
+
+  chmod u+x $CATALINA_HOME/bin/*.sh
 }
 
 

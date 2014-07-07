@@ -7,7 +7,7 @@ This image provides a base installation for Alfresco Community. The image contai
 * Solr as search engine
 * Nginx
 
-The building process of this image is inspired by https://github.com/loftuxab/alfresco-ubuntu-install by http://loftux.se/ and 
+The building process is inspired by https://github.com/loftuxab/alfresco-ubuntu-install by http://loftux.se/ and 
 some artifacts are copied from that work (the nginx maintenance page, for instance).
 
 Warning: this image is work in progress. Don't rely on it until this notice appears.
