@@ -18,6 +18,8 @@ RUN chmod 755 /opt/alfresco/setup/*.sh && chmod 755 /opt/alfresco/bin/*.sh
 # install all the other components
 RUN /opt/alfresco/setup/install.sh
 
+RUN apt-get clean
+
 VOLUME [/opt/alfresco/data]
 
 # http tomcat and via nginx

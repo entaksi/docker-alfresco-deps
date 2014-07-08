@@ -1,6 +1,18 @@
 #!/bin/bash
 set -e
 
+if [ -n "$IPV6_ADDR" ]; then
+  if [ -n "$IPV6_PREFIX" ]; then
+     IPV6_PREFIX=64
+  fi
+
+  ip -6 addr add $IPV6_ADDR/$IPV6_PREFIX dev eth0
+
+  if [- n "$IPV6_GW"]; then
+     ip -6 route add default via "$IPV6_GW" dev eth0
+  fi
+fi
+
 ALF_HOME=/opt/alfresco
 ALF_BIN=$ALF_HOME/bin
 ALF_SETUP=$ALF_HOME/setup
